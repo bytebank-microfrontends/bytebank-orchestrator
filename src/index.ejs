@@ -45,6 +45,22 @@
       }
     }
   </script>
+  <% } else { %>
+  <script type="injector-importmap">
+    {
+      "imports": {
+        "@bytebank/root-config": "https://bytebank-microfrontends.github.io/bytebank-orchestrator/bytebank-root-config.js",
+        "@bytebank/account": "https://bytebank-microfrontends.github.io/bytebank-account/bytebank-account.js",
+        "@bytebank/navbar": "https://bytebank-microfrontends.github.io/bytebank-navbar/bytebank-navbar.js",
+        "@bytebank/not-found": "https://bytebank-microfrontends.github.io/bytebank-not-found/bytebank-not-found.js",
+        "@bytebank/dashboard": "https://bytebank-microfrontends.github.io/bytebank-dashboard/bytebank-dashboard.js",
+        "@bytebank/transaction": "https://bytebank-microfrontends.github.io/bytebank-transaction/bytebank-transaction.js",
+        "@bytebank/util": "https://bytebank-microfrontends.github.io/bytebank-util/bytebank-util.js",
+        "@bytebank/user-widget": "https://bytebank-microfrontends.github.io/bytebank-user-widget/bytebank-user-widget.js",
+        "@bytebank/cards": "https://bytebank-microfrontends.github.io/bytebank-cards/bytebank-cards.js"
+      }
+    }
+  </script>
   <% } %>
 
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@5.1.1/dist/import-map-overrides.js"></script>
