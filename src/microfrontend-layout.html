@@ -17,6 +17,7 @@
   
   -->
   
+<single-spa-router>
   <main>
     <application name="@bytebank/navbar"></application>
 
@@ -30,6 +31,10 @@
 
     <route path="/transaction">
       <application name="@bytebank/transaction"></application>
+    </route>
+
+    <route path="/cards">
+      <application name="@bytebank/cards"></application>
     </route>
 
     <route default>
