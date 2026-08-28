@@ -1,0 +1,13 @@
+:root {
+  --bb-sidebar-width: 260px;
+}
+
+body {
+  margin: 0;
+}
+
+.bb-shell-content {
+  min-height: 100vh;
+  margin-left: var(--bb-sidebar-width);
+  box-sizing: border-box;
+}
