@@ -1,0 +1,52 @@
+:root {
+  /* Brand */
+  --bb-color-primary: #a43df2;
+  --bb-color-primary-strong: #842be5;
+  --bb-color-primary-dark: #6420bf;
+
+  /* Application */
+  --bb-color-background: #f7f6fa;
+  --bb-color-surface: #ffffff;
+  --bb-color-surface-soft: #f0edf4;
+
+  /* Navigation */
+  --bb-color-sidebar: #17121f;
+  --bb-color-sidebar-surface: #241a32;
+  --bb-color-sidebar-text: #f9f7fb;
+  --bb-color-sidebar-muted: #b4aabd;
+
+  /* Typography */
+  --bb-color-text-primary: #211a29;
+  --bb-color-text-secondary: #756c7e;
+  --bb-color-text-inverse: #ffffff;
+
+  /* Semantic */
+  --bb-color-success: #12805c;
+  --bb-color-danger: #d54755;
+
+  /* Structure */
+  --bb-color-border: #e8e3ec;
+
+  --bb-radius-sm: 8px;
+  --bb-radius-md: 14px;
+  --bb-radius-lg: 20px;
+  --bb-radius-xl: 28px;
+
+  --bb-space-1: 4px;
+  --bb-space-2: 8px;
+  --bb-space-3: 12px;
+  --bb-space-4: 16px;
+  --bb-space-5: 24px;
+  --bb-space-6: 32px;
+  --bb-space-7: 40px;
+
+  --bb-shadow-card:
+    0 12px 32px rgba(32, 22, 40, 0.07);
+
+  --bb-font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}

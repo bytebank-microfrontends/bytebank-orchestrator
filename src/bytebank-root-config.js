@@ -1,3 +1,4 @@
+import "./styles/theme.css";
 import "./styles/shell.css";
 import { registerApplication, start } from "single-spa";
 import {
