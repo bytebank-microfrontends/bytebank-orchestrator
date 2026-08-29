@@ -1,9 +1,12 @@
 const { merge } = require("webpack-merge");
+
 const singleSpaDefaults = require("webpack-config-single-spa");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (webpackConfigEnv, argv) => {
   const orgName = "bytebank";
+
   const defaultConfig = singleSpaDefaults({
     orgName,
     projectName: "root-config",
@@ -13,7 +16,6 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   return merge(defaultConfig, {
-    // modify the webpack config however you'd like to by adding to this object
     plugins: [
       new HtmlWebpackPlugin({
         inject: false,
@@ -22,6 +24,15 @@ module.exports = (webpackConfigEnv, argv) => {
           isLocal: webpackConfigEnv && webpackConfigEnv.isLocal,
           orgName,
         },
+      }),
+
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: "src/assets/bytebank-symbol.png",
+            to: "bytebank-symbol.png",
+          },
+        ],
       }),
     ],
   });
