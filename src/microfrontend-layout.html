@@ -17,28 +17,27 @@
   
   -->
 
-  <single-spa-router>
-    <application name="@bytebank/navbar"></application>
+  <application name="@bytebank/navbar"></application>
 
-    <main class="bb-shell-content">
-      <route path="/bytebank-orchestrator/" exact>
-        <application name="@bytebank/dashboard"></application>
-      </route>
+  <main class="bb-shell-content">
+    <route path="/bytebank-orchestrator/" exact>
+      <application name="@bytebank/dashboard"></application>
+    </route>
 
-      <route path="/bytebank-orchestrator/account" exact>
-        <application name="@bytebank/account"></application>
-      </route>
+    <route path="/bytebank-orchestrator/account" exact>
+      <application name="@bytebank/account"></application>
+    </route>
 
-      <route path="/bytebank-orchestrator/transaction">
-        <application name="@bytebank/transaction"></application>
-      </route>
+    <route path="/bytebank-orchestrator/transaction">
+      <application name="@bytebank/transaction"></application>
+    </route>
 
-      <route path="/bytebank-orchestrator/cards">
-        <application name="@bytebank/cards"></application>
-      </route>
+    <route path="/bytebank-orchestrator/cards">
+      <application name="@bytebank/cards"></application>
+    </route>
 
-      <route default>
-        <application name="@bytebank/not-found"></application>
-      </route>
-    </main> </single-spa-router
-></single-spa-router>
+    <route default>
+      <application name="@bytebank/not-found"></application>
+    </route>
+  </main>
+</single-spa-router>
