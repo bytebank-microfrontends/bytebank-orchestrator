@@ -45,4 +45,13 @@ describe("index.ejs security policy", () => {
       /<% if \(isLocal\) { %>\s*<import-map-overrides-full show-when-local-storage="devtools" dev-libs><\/import-map-overrides-full>\s*<% } %>/
     );
   });
+
+  it("maps auth for local and production ESM loading", () => {
+    expect(template).toContain(
+      '"@bytebank/auth": "//localhost:8081/bytebank-auth.js"'
+    );
+    expect(template).toContain(
+      '"@bytebank/auth": "https://bytebank-microfrontends.github.io/bytebank-auth/bytebank-auth.js"'
+    );
+  });
 });
