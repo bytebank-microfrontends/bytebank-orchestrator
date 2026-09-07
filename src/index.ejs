@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <%
+    const productionCsp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://bytebank-microfrontends.github.io https://cdn.jsdelivr.net",
+      "connect-src 'self'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https://bytebank-microfrontends.github.io",
+      "font-src 'self' data:",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join("; ");
+
+    const localCsp = [
+      "default-src 'self' localhost:*",
+      "script-src 'self' 'unsafe-inline' localhost:* https://cdn.jsdelivr.net",
+      "connect-src 'self' localhost:* ws://localhost:*",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: localhost:* https://bytebank-microfrontends.github.io",
+      "font-src 'self' data:",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join("; ");
+  %>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ByteBank</title>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: localhost:*; script-src 'unsafe-inline' 'unsafe-eval' https: localhost:*; connect-src https: localhost:* ws://localhost:*; style-src 'unsafe-inline' https:; object-src 'none';">
+  <meta http-equiv="Content-Security-Policy" content="<%= isLocal ? localCsp : productionCsp %>">
   <meta name="importmap-type" use-injector />
   <link
     rel="icon"
@@ -13,9 +38,6 @@
     href="https://bytebank-microfrontends.github.io/bytebank-orchestrator/bytebank-symbol.png"
   />
   <meta name="theme-color" content="#17121f" />
-  <!-- If you wish to turn off import-map-overrides for specific environments (prod), uncomment the line below -->
-  <!-- More info at https://github.com/single-spa/import-map-overrides/blob/main/docs/configuration.md#domain-list -->
-  <!-- <meta name="import-map-overrides-domains" content="denylist:prod.example.com" /> -->
 
   <!-- Shared dependencies go into this import map -->
   <script type="injector-importmap">
@@ -69,7 +91,9 @@
   </script>
   <% } %>
 
+  <% if (isLocal) { %>
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@5.1.1/dist/import-map-overrides.js"></script>
+  <% } %>
   <script src="https://cdn.jsdelivr.net/npm/@single-spa/import-map-injector@2.0.1/lib/import-map-injector.js"></script>
 </head>
 <body>
@@ -82,6 +106,8 @@
       import('@bytebank/root-config');
     });
   </script>
+  <% if (isLocal) { %>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+  <% } %>
 </body>
 </html>
