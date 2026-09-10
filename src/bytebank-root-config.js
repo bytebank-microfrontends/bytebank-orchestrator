@@ -7,6 +7,9 @@ import {
   constructLayoutEngine,
 } from "single-spa-layout";
 import microfrontendLayout from "./microfrontend-layout.html";
+import { setupMockAuthNavigationGuard } from "./mock-auth-navigation";
+
+setupMockAuthNavigationGuard();
 
 const routes = constructRoutes(microfrontendLayout);
 const applications = constructApplications({
