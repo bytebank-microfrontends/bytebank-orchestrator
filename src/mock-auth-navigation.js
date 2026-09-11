@@ -45,13 +45,13 @@ export function isPrivateRoute(pathname) {
 
 export function getMockAuthNavigationTarget({ pathname, session }) {
   const normalizedPathname = normalizePathname(pathname);
-  const hasSession = Boolean(session);
+  const isAuthenticated = session?.authenticated === true;
 
-  if (!hasSession && isPrivateRoute(normalizedPathname)) {
+  if (!isAuthenticated && isPrivateRoute(normalizedPathname)) {
     return LOGIN_PATH;
   }
 
-  if (hasSession && normalizedPathname === LOGIN_PATH) {
+  if (isAuthenticated && normalizedPathname === LOGIN_PATH) {
     return ORCHESTRATOR_ROOT_PATH;
   }
 

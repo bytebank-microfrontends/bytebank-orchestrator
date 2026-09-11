@@ -25,6 +25,20 @@ jest.mock(
 );
 
 describe("mock auth navigation guard", () => {
+  const authenticatedSession = {
+    authenticated: true,
+    user: {
+      name: "Ada Lovelace",
+      email: "ada@bytebank.com",
+      accountType: "Corrente",
+    },
+  };
+
+  const unauthenticatedSession = {
+    authenticated: false,
+    user: null,
+  };
+
   beforeEach(() => {
     navigateToUrl.mockClear();
     getMockAuthSession.mockReset();
@@ -39,13 +53,14 @@ describe("mock auth navigation guard", () => {
     expect(
       getMockAuthNavigationTarget({
         pathname: ORCHESTRATOR_ROOT_PATH,
-        session: null,
+        session: unauthenticatedSession,
       })
     ).toBe(LOGIN_PATH);
   });
 
   it("redirects from private routes to login without a session", () => {
     [
+      ORCHESTRATOR_ROOT_PATH,
       "/bytebank-orchestrator/account",
       "/bytebank-orchestrator/transaction",
       "/bytebank-orchestrator/cards",
@@ -53,17 +68,28 @@ describe("mock auth navigation guard", () => {
       expect(
         getMockAuthNavigationTarget({
           pathname,
-          session: null,
+          session: unauthenticatedSession,
         })
       ).toBe(LOGIN_PATH);
     });
   });
 
-  it("allows the dashboard with a session", () => {
+  it("treats an unauthenticated session object as unauthenticated", () => {
+    expect(Boolean(unauthenticatedSession)).toBe(true);
+
     expect(
       getMockAuthNavigationTarget({
         pathname: ORCHESTRATOR_ROOT_PATH,
-        session: { user: "Ada" },
+        session: unauthenticatedSession,
+      })
+    ).toBe(LOGIN_PATH);
+  });
+
+  it("allows private routes with an authenticated session", () => {
+    expect(
+      getMockAuthNavigationTarget({
+        pathname: ORCHESTRATOR_ROOT_PATH,
+        session: authenticatedSession,
       })
     ).toBeNull();
   });
@@ -72,7 +98,7 @@ describe("mock auth navigation guard", () => {
     expect(
       getMockAuthNavigationTarget({
         pathname: LOGIN_PATH,
-        session: { user: "Ada" },
+        session: authenticatedSession,
       })
     ).toBe(ORCHESTRATOR_ROOT_PATH);
   });
@@ -98,7 +124,7 @@ describe("mock auth navigation guard", () => {
       },
       removeEventListener: jest.fn(),
     };
-    getMockAuthSession.mockReturnValue(null);
+    getMockAuthSession.mockReturnValue(unauthenticatedSession);
     subscribeMockAuthSession.mockImplementation((listener) => {
       sessionListener = listener;
       return unsubscribe;
@@ -109,7 +135,7 @@ describe("mock auth navigation guard", () => {
     expect(navigateToUrl).toHaveBeenCalledWith(LOGIN_PATH);
 
     navigateToUrl.mockClear();
-    getMockAuthSession.mockReturnValue({ user: "Ada" });
+    getMockAuthSession.mockReturnValue(authenticatedSession);
     global.window.location.pathname = LOGIN_PATH;
 
     sessionListener();
@@ -138,7 +164,7 @@ describe("mock auth navigation guard", () => {
       },
       removeEventListener: jest.fn(),
     };
-    getMockAuthSession.mockReturnValue(null);
+    getMockAuthSession.mockReturnValue(unauthenticatedSession);
     subscribeMockAuthSession.mockReturnValue(jest.fn());
 
     setupMockAuthNavigationGuard();
@@ -159,5 +185,6 @@ describe("mock auth navigation guard", () => {
     expect(guardSource).not.toMatch(
       /localStorage|sessionStorage|document\.cookie|\bcookie\b|\bjwt\b|\btoken\b|SystemJS|window\.location\.href/i
     );
+    expect(guardSource).not.toMatch(/Boolean\(session\)/);
   });
 });
